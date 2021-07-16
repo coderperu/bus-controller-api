@@ -16,7 +16,7 @@ services:
         networks:
             - bus_controller_net
     bus_controller_mysql_srv:
-        image: mysql:8.0.19
+        image: mysql:5.7.14
         container_name: bus_controller_mysql
         restart: unless-stopped
         environment:
@@ -26,8 +26,10 @@ services:
             MYSQL_USER: ${DB_USERNAME}
             SERVICE_TAGS: dev
             SERVICE_NAME: mysql
+        ports:
+            - 3306:3306
         volumes:
-            - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+            - ./docker-compose/mysql/:/docker-entrypoint-initdb.d/
         networks:
             - bus_controller_net
     bus_controller_nginx_srv:
